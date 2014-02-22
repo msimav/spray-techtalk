@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>spray.io - Implementing REST APIs and Single Page Applications</title>
+
+		<meta name="description" content="Introduction to developing reactive web APIs with spray.io">
+		<meta name="author" content="Mustafa Simav">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<style type="text/css">
+			body {
+			  background: #4d7e65;
+			  background-color: #4d7e65;
+			}
+
+			.reveal section pre {
+				box-shadow: none;
+			}
+
+			.reveal section img {
+			  background: rgba(255, 255, 255, 0);
+			  border: 0px;
+			  box-shadow: none;
+			}
+		</style>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+				<section>
+					<h1>spray.io</h1>
+					<h4>REST ON AKKA</h4>
+					<br />
+					<p><small>Mustafa Simav</small></p>
+				</section>
+
+				<section>
+					<h2>HOW SPRAY WORKS?</h2>
+
+					<img class="fragment" style="width:80%" src="http://spray.io/webinar/lib/api0.svg" alt="API layer">
+					<img class="fragment" style="position: absolute; width:80%; margin-left: -80%" src="http://spray.io/webinar/lib/api1.svg" alt="API layer">
+					<img class="fragment" style="position: absolute; width:80%; margin-left: -80%" src="http://spray.io/webinar/lib/api2.svg" alt="API layer">
+					<img class="fragment" style="position: absolute; width:80%; margin-left: -80%" src="http://spray.io/webinar/lib/api3.svg" alt="API layer">
+					<img class="fragment" style="position: absolute; width:80%; margin-left: -80%" src="http://spray.io/webinar/lib/api4.svg" alt="API layer">
+					<img class="fragment" style="position: absolute; width:80%; margin-left: -80%" src="http://spray.io/webinar/lib/api5.svg" alt="API layer">
+					<img class="fragment" style="position: absolute; width:80%; margin-left: -80%" src="http://spray.io/webinar/lib/api6.svg" alt="API layer">
+				</section>
+
+				<section>
+					<h2>THANK YOU!</h2>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				history: false,
+				center: true,
+
+				theme: 'night',
+				transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+				keyboard: {
+				    27: null, // do nothing when ESC is pressed
+				},
+
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
