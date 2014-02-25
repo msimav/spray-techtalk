@@ -19,11 +19,20 @@ class BeerApi extends HttpServiceActor with DefaultJsonProtocol {
   implicit val timeout = Timeout(3 seconds)
 
   override def receive: Receive = runRoute {
+    path("beer") {
+      get {
+        complete {
+          (core ? GetAll).mapTo[List[String]]
+        }
+      } ~
+      post {
+        complete("")
+      }
+    } ~
     path("beer" / Segment) { beer =>
-      get { ctx =>
-        (core ? Get(beer)) onSuccess  {
-          case Success(x) => ctx.complete(x)
-          case Failure(e) => ctx.failWith(new Exception(e))
+      get {
+        complete {
+          (core ? Get(beer)).mapTo[Option[Beer]]
         }
       }
     }
