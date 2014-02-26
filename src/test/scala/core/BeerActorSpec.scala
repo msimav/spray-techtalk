@@ -17,13 +17,13 @@ with MockitoSugar {
     "fail returning beer if empty"  in {
       val actorRef = TestActorRef[BeerActor]
       actorRef ! Get("bomonti")
-      expectMsgType[Failure]
+      expectMsg(None)
     }
 
     "fail returning random beer if empty"  in {
       val actorRef = TestActorRef[BeerActor]
       actorRef ! GetRandom
-      expectMsgType[Failure]
+      expectMsg(None)
     }
 
     "put given beer" in {
@@ -31,10 +31,10 @@ with MockitoSugar {
       val beer = mock[Beer]
 
       actorRef ! Put("mock", beer)
-      expectMsg(Ok)
+      expectMsg(beer)
 
       actorRef ! Get("mock")
-      expectMsg(Success(beer))
+      expectMsg(Some(beer))
     }
 
     "return random beer" in {
@@ -43,12 +43,26 @@ with MockitoSugar {
       val beer2 = mock[Beer]
 
       actorRef ! Put("mock1", beer1)
-      expectMsg(Ok)
+      expectMsg(beer1)
       actorRef ! Put("mock2", beer2)
-      expectMsg(Ok)
+      expectMsg(beer2)
 
       actorRef ! GetRandom
-      expectMsgAnyOf(Success(beer1), Success(beer2))
+      expectMsgAnyOf(Some(beer1), Some(beer2))
+    }
+
+    "return list of all beers" in {
+      val actorRef = TestActorRef[BeerActor]
+      val beer1 = mock[Beer]
+      val beer2 = mock[Beer]
+
+      actorRef ! Put("mock1", beer1)
+      expectMsg(beer1)
+      actorRef ! Put("mock2", beer2)
+      expectMsg(beer2)
+
+      actorRef ! GetAll
+      expectMsg(List(beer1.name, beer2.name))
     }
 
   }

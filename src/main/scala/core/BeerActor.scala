@@ -1,15 +1,17 @@
 package core
 
-import akka.actor.Actor
+import akka.actor.{Props, Actor}
 import model.Beer
 import scala.util.Random
 
 object BeerActor {
   sealed trait Request
   case class Get(name: String) extends Request
-  case object GetAll
+  case object GetAll extends Request
   case object GetRandom extends Request
   case class Put(name: String, beer: Beer) extends Request
+
+  def props: Props = Props[BeerActor]
 }
 
 class BeerActor extends Actor {
@@ -23,7 +25,7 @@ class BeerActor extends Actor {
       sender ! beer
 
     case GetRandom =>
-      val random = Random.shuffle(beers).headOption
+      val random = Random.shuffle(beers).map(_._2).headOption
       sender ! random
 
     case GetAll =>
