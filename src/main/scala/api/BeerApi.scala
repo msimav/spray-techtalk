@@ -14,34 +14,46 @@ class BeerApi extends HttpServiceActor with DefaultJsonProtocol {
   import context.dispatcher
 
   val core = context.actorOf(BeerActor.props, "core")
-  implicit val beerFormat = jsonFormat2(Beer)
+  implicit val beerFormat = jsonFormat3(Beer)
   implicit val timeout = Timeout(3 seconds)
 
   override def receive: Receive = runRoute {
     path("beer") {
       get {
-        complete {
-          (core ? GetAll).mapTo[List[String]]
+        parameter('query ?) { query =>
+          complete {
+            query match {
+              case Some(name) => (core ? Search(name)).mapTo[Option[Beer]]
+              case None => (core ? GetAll).mapTo[Iterable[Beer]]
+            }
+          }
         }
       } ~
       post {
         entity(as[Beer]) { beer =>
           complete {
-            (core ? Put(beer.name, beer)).mapTo[Beer]
+            (core ? Add(beer)).mapTo[Beer]
           }
         }
       }
     } ~
-    path("beer" / Segment) { beer =>
+    path("beer" / IntNumber) { id =>
       get {
         complete {
-          (core ? Get(beer)).mapTo[Option[Beer]]
+          (core ? Get(id)).mapTo[Option[Beer]]
         }
-      }
-    } ~
-    (get & path("beer" / "random")) {
-      complete {
-        (core ? GetRandom).mapTo[Option[Beer]]
+      } ~
+      put {
+        entity(as[Beer]) { beer =>
+          complete {
+            (core ? Update(id, beer)).mapTo[Option[Beer]]
+          }
+        }
+      } ~
+      delete {
+        complete {
+          (core ? Delete(id)).mapTo[Option[Beer]]
+        }
       }
     }
   }
