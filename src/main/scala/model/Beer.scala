@@ -1,3 +1,3 @@
 package model
 
-case class Beer(name: String, price: String)
+case class Beer(id: Option[Int], name: String, price: String)
